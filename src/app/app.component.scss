@@ -1,0 +1,141 @@
+#mainDiv {
+  #assemblyInput {
+    margin-top: 20px;
+    padding-left: 20px;
+    float: left;
+    width: 50%;
+
+    textarea {
+      width: 60%;
+      height: 400px;
+    }
+
+    #assembledLines {
+      width: 60%;
+
+      tr {
+        height: 2em;
+      }
+
+      td {
+        padding: 0;
+        vertical-align: middle;
+
+        div {
+          padding: 0 0 0 5px;
+        }
+      }
+
+      .highlightLine {
+        color: white;
+        background-color: #428BCA;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  #registerMemoryView {
+    float: right;
+    width: 50%;
+
+    #registerView {
+      width: 80%;
+      float: left;
+
+      th, td {
+        text-align: center;
+      }
+
+      #ipHeader {
+        div {
+          background-color: #428BCA;
+          color: white;
+          border-radius: 2px;
+          padding: 0 2px 0 2px;
+        }
+      }
+
+      #br2Header {
+        div {
+          background-color: #e28f0f;
+          color: white;
+          border-radius: 2px;
+          padding: 0 2px 0 2px;
+        }
+      }
+    }
+
+    #statusView {
+      width: 20%;
+      float: right;
+      text-align: center;
+
+      span {
+        border-radius: 2px;
+        padding: 3px;
+        background-color: #428BCA;
+        color: white;
+        font-weight: bold;
+      }
+    }
+
+    #memoryView {
+      clear: both;
+
+      table {
+        font-family: Consolas;
+        //font-size: 0.5em;
+        margin-left: -20px;
+        width: 80%;
+
+        thead {
+          th {
+            width: 4em;
+            text-align: right;
+          }
+        }
+
+        td {
+          width: 4em;
+          text-align: right;
+
+          div {
+            padding: 0 2px 0 2px;
+          }
+        }
+
+        .ipHightlight {
+          background-color: #428BCA;
+          color: white;
+          border-radius: 2px;
+          width: fit-content;
+          float: right;
+          padding: 0 2px 0 2px;
+        }
+
+        .br2Hightlight {
+          background-color: #e28f0f;
+          color: white;
+          border-radius: 2px;
+          width: fit-content;
+          float: right;
+          padding: 0 2px 0 2px;
+        }
+
+        @keyframes changedMemFade {
+          from { background-color: #e2483e; color: white; }
+          to { background: transparent; color: black; }
+        }
+
+        .changedMem {
+          animation-name: changedMemFade;
+          animation-duration: 1.5s;
+          border-radius: 2px;
+          width: fit-content;
+          float: right;
+          padding: 0 2px 0 2px;
+        }
+      }
+    }
+  }
+}
