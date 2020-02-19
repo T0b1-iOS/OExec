@@ -24,6 +24,14 @@
       <option value="4">4 Hz</option>
       <option value="5">5 Hz</option>
       <option value="10">10 Hz</option>
+      <option value="20">20 Hz</option>
+      <option value="30">30 Hz</option>
+      <option value="40">40 Hz</option>
+      <option value="50">50 Hz</option>
+      <option value="100">100 Hz</option>
+      <option value="200">200 Hz</option>
+      <option value="500">500 Hz</option>
+      <option value="1000">1000 Hz</option>
     </select>
   </div>
 
@@ -64,21 +72,35 @@
     </div>
     <div id="memoryView">
       <h4>RAM</h4>
+      <div>
+        <fa-icon style="vertical-align: middle;" [icon]="faAngleLeft" (click)="pageLeft()"></fa-icon>
+        <span style="vertical-align: middle;">Page</span>
+        <fa-icon style="vertical-align: middle;" [icon]="faAngleRight" (click)="pageRight()"></fa-icon>
+      </div>
+
       <table class="table-striped">
         <thead>
-          <th></th>
+          <th>{{ asThreeDigitHex(ramViewOff) }}</th>
           <th *ngFor="let i of numbers">{{ i.toString(16).toUpperCase() }}</th>
         </thead>
         <tbody>
         <tr *ngFor="let i of numbers">
           <th scope="row">{{ shiftLeft(i, 4).toString(16).toUpperCase() }}</th>
           <td *ngFor="let j of numbers">
-            <div [class.ipHightlight]="cpu.regState.ip === (shiftLeft(i, 4) + j)"
-            [class.br2Hightlight]="br2IsAddress() && cpu.regState.br2 === (shiftLeft(i, 4) + j)"
-            [class.changedMem]="isRamHighlighted(shiftLeft(i, 4) + j)"
-            >{{ asFourDigitHex(cpu.ram[shiftLeft(i, 4) + j]) }}</div>
+            <div [class.ipHightlight]="cpu.regState.ip === (ramViewOff + shiftLeft(i, 4) + j)"
+            [class.br2Hightlight]="br2IsAddress() && cpu.regState.br2 === (ramViewOff + shiftLeft(i, 4) + j)"
+            [class.changedMem]="isRamHighlighted(ramViewOff + shiftLeft(i, 4) + j)"
+            >{{ asFourDigitHex(cpu.ram[ramViewOff + shiftLeft(i, 4) + j]) }}</div>
           </td>
         </tr>
+        </tbody>
+      </table>
+      <h6>Output:</h6>
+      <table id="outputChars">
+        <tbody>
+          <tr>
+            <td *ngFor="let c of cpu.outputChars">{{ c == 0 ? ' ' : fromCharCode(c) }}</td>
+          </tr>
         </tbody>
       </table>
     </div>

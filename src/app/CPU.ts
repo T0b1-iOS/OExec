@@ -1,5 +1,6 @@
 import {instructionList} from './opcodes';
 import {InstructionExecutor, RegisterState} from './types';
+import {outputChar, setGlobalOutputChar} from './transport_instructions';
 
 export class CPU {
   regState = new RegisterState();
@@ -8,6 +9,7 @@ export class CPU {
   speed = 1; // run cycle in Hz
   curStatus = 'HOLD';
   isReset = false;
+  outputChars: Array<number>;
 
   constructor() {
     this.ram = new Array(0xFFFF).fill(0);
@@ -15,6 +17,7 @@ export class CPU {
     if (Object.seal) {
       Object.seal(this.ram);
     }
+    this.outputChars = Array(24).fill(0);
   }
 
   delay(ms: number) {
@@ -63,6 +66,12 @@ export class CPU {
       if (this.isReset || (decodeResult as InstructionExecutor)(this.regState, this.ram) === false) {
         this.regState.executing = false;
         this.curStatus = 'HOLD';
+      }
+
+      if (outputChar !== 0) {
+        this.outputChars.unshift(outputChar);
+        this.outputChars.pop();
+        setGlobalOutputChar(0);
       }
 
       if (step) {
@@ -127,5 +136,6 @@ export class CPU {
     if (Object.seal) {
       Object.seal(this.ram);
     }
+    this.outputChars = new Array(24).fill(0);
   }
 }

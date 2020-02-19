@@ -5,6 +5,13 @@ import {ElementRef} from '@angular/core';
 const changedRam: Map<number, boolean> = new Map<number, boolean>();
 export { changedRam };
 
+let outputChar = 0;
+export { outputChar };
+
+export function setGlobalOutputChar(char: number): void {
+  outputChar = char;
+}
+
 export function LOAD(regState: RegisterState, ram: Array<number>): boolean {
   // tslint:disable-next-line:no-bitwise
   const res = (ram[regState.br2] & 0xFFFF);
@@ -22,6 +29,12 @@ export function LOADI(regState: RegisterState, ram: Array<number>): boolean {
 }
 
 export function STORE(regState: RegisterState, ram: Array<number>): boolean {
+  if (regState.br2 === 0xFFFF) {
+    // output
+    outputChar = regState.a;
+    return true;
+  }
+
   ram[regState.br2] = regState.a;
   changedRam.set(regState.br2, true);
   setTimeout(() => {

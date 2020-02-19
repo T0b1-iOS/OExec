@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CPU} from './CPU';
 import {instructionList} from './opcodes';
 import {Assembler} from './Assembler';
-import { FormsModule } from '@angular/forms';
 import {changedRam} from './transport_instructions';
+import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,9 @@ import {changedRam} from './transport_instructions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  faAngleLeft = faAngleLeft;
+  faAngleRight = faAngleRight;
+
   name = 'Tobi';
   ramViewOff = 0;
   numbers: Array<number>;
@@ -31,6 +34,10 @@ export class AppComponent implements OnInit {
   shiftLeft(num: number, shift): number {
     // tslint:disable-next-line:no-bitwise
     return (num << shift);
+  }
+
+  asThreeDigitHex(num: number) {
+    return ('000' + (num.toString(16))).substr(-3).toUpperCase();
   }
 
   asFourDigitHex(num: number) {
@@ -86,5 +93,22 @@ export class AppComponent implements OnInit {
     if (!isNaN(val) && val > 0) {
       this.cpu.speed = val;
     }
+  }
+
+  public pageLeft() {
+    this.ramViewOff -= 0x100;
+    if (this.ramViewOff < 0) {
+      this.ramViewOff = 0;
+    }
+  }
+  public pageRight() {
+    this.ramViewOff += 0x100;
+    if (this.ramViewOff > 0xFF00) {
+      this.ramViewOff = 0;
+    }
+  }
+
+  public fromCharCode(c): string {
+    return String.fromCharCode(c);
   }
 }
