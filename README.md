@@ -5,4 +5,4 @@ Small Assembler & Executor for a custom Instruction Set Architecture described i
 Mainly here so I don't loose it.
 
 ## Demo
-![](https://gfycat.com/FancySeriousBlacknorwegianelkhound)
+[GIF](https://gfycat.com/FancySeriousBlacknorwegianelkhound)
